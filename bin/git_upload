@@ -1,0 +1,15 @@
+if [ ! -f "~/.git_main_cfg" ]
+then
+	echo "g_u_em=your@email.com" >> "~/.git_main_cfg"
+	echo "g_u_n=username" >> "~/.git_main_cfg"
+	echo "g_p=password" >> "~/.git_main_cfg"
+fi
+
+source ~/.git_main_cfg
+repo_name=$(basename "$PWD")
+git init
+git config user.email "$g_u_em"
+git config user.name "$g_u_n"
+git add -A
+git commit -m "xxx"
+git push https://$g_u_n:$g_p@github.com/$g_u_n/$repo_name.git --all

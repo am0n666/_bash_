@@ -2,8 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export ANDROID_SDK_ROOT="$HOME/lib/sdk"
-export NDK="$HOME/lib/ndk"
+export ANDROID_SDK_ROOT="$HOME/lib/android-sdk"
+export NDK="$HOME/lib/android-ndk"
 
 # Point JAVA_HOME to your OpenJDK 8 
 #export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
@@ -12,8 +12,6 @@ export NDK="$HOME/lib/ndk"
 export PATH="${ANDROID_SDK_ROOT}/emulator:$NDK:${PATH}"
 
 #export ANDROID_HOME=$HOME/lib/sdk
-clear
-figlet -f big Ubuntu
 USER=`whoami`
 
 export COMPOSER_HOME=/etc/composer

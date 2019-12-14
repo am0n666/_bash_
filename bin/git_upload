@@ -1,8 +1,8 @@
 if [ ! -f "~/.git_main_cfg" ]
 then
-	echo "g_u_em=your@email.com" >> "~/.git_main_cfg"
-	echo "g_u_n=username" >> "~/.git_main_cfg"
-	echo "g_p=password" >> "~/.git_main_cfg"
+	echo "g_u_em=your@email.com" >> ~/.git_main_cfg
+	echo "g_u_n=username" >> ~/.git_main_cfg
+	echo "g_p=password" >> ~/.git_main_cfg
 fi
 
 source ~/.git_main_cfg

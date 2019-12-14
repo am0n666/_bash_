@@ -1,0 +1,14 @@
+usr=`id -u`
+if [ -n $1 ]
+then
+	if [ -d $1 ]
+	then
+		echo "Setting owner for: $usr"
+		echo "for: " $1
+		for s in '/sbin/su' '/system/sbin/su' '/system/bin/su' '/system/xbin/su' '/su/bin/su' '/magisk/.core/bin/su'; do
+			if [ -e "$s" ]; then
+				"$s" -c  "chown -R $usr:$usr $1"
+			fi
+		done
+	fi
+fi

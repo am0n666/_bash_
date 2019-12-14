@@ -30,7 +30,7 @@ fi
 
 remove_duplicates_from_path
 
-mesg n
+#mesg n
 
 if [ -x "`which inxi 2>&1`" ]; then
     inxi -IpRS -v0 -c5

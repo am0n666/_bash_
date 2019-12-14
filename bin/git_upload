@@ -1,4 +1,4 @@
-if [ ! -f "/c/Users/am0n/.git_main_cfg" ]
+if [ ! -f "~/.git_main_cfg" ]
 then
 	echo "g_u_em=your@email.com" >> ~/.git_main_cfg
 	echo "g_u_n=username" >> ~/.git_main_cfg

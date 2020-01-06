@@ -24,17 +24,18 @@ show_usage() {
 
 SYSBIN=/system/bin
 SYSXBIN=/system/xbin
+SBINX=/sbin
 BB=$SYSXBIN/busybox
 PRE=/data/data/com.termux/files
 ROOT_HOME=$PRE/root
 BINPRE=$PRE/usr/bin
 LDLP="export LD_LIBRARY_PATH=$PRE/usr/lib"
-CMDLINE="PATH=$PATH:$SYSXBIN:$SYSBIN;$LDLP;HOME=$ROOT_HOME;cd $PWD"
+CMDLINE="PATH=$PATH:$SBINX:$SYSXBIN:$SYSBIN;$LDLP;HOME=$ROOT_HOME;cd $PWD"
 
 if [ -x /magisk/.core/bin/su ]; then
 	SU=/magisk/.core/bin/su
-elif [ -x /sbin/su ]; then
-	SU=/sbin/su
+elif [ -x $SBINX/su ]; then
+	SU=$SBINX/su
 elif [ -x $SYSXBIN/su ]; then
 	SU=$SYSXBIN/su
 elif [ -x /su/bin/su ]; then
@@ -43,6 +44,17 @@ else
 	echo -e "\n`color 1 su` executable not found"
 	echo -e "`color 1 sudo` requires `color 1 su`\n"
 	exit
+fi
+
+if [ -G $ROOT_HOME/.termux/shell ]; then
+	export SHELL="`realpath $ROOT_HOME/.termux/shell`"
+else
+	for file in $PRE/usr/bin/bash $PRE/usr/bin/sh /system/bin/sh; do
+		if [ -x $file ]; then
+			export SHELL=$file
+			break
+		fi
+	done
 fi
 
 if [ ! -d $ROOT_HOME ]; then
@@ -82,7 +94,7 @@ ARGS=$(printf '%q ' "$@")
 if [ -z "$*" ]; then
 	show_usage
 elif [ $1 == "su" ]; then
-	CMDLINE="$CMDLINE;$BINPRE/bash"
+	CMDLINE="$CMDLINE;$SHELL"
 elif [ -x "$BINPRE/$1" ]; then
 	CMDLINE="$CMDLINE;$BINPRE/$ARGS"
 elif [ -x $SYSBIN/$1 ] || [ -x $SYSXBIN/$1 ] || [ -x $1 ]; then
